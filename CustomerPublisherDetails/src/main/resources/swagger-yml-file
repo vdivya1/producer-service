@@ -1,0 +1,173 @@
+swagger: "2.0"
+info:
+  description: "Publisher service sending messages to kafka"
+  version: "1.0.0"
+  title: "Publisher Service"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "Publisher.swagger.io"
+basePath: "/customer-details/v1"
+tags:
+- name: "ProducerService"
+  description: "Tranactional Deatails"
+schemes:
+- "https"
+paths:
+  /customer-details:
+    post:
+      tags:
+        - publisher details 
+      summary: "CustomerDetails"
+      description: "Transctional details sedning through the publisher message"
+      operationId: "addTransaction"
+      consumes:
+       - "application/json"
+      produces:
+       - "application/json"
+      parameters:
+       - name: "customer deatils"
+         in: "body"
+         required: true
+         schema:
+          $ref: '#/definitions/PublisherRequest'
+          
+       - name: "Authorization"
+         in: "header"
+         required: true
+         type: string
+        
+       - name: "transction-Id"
+         in: "header"
+         required: false
+         type: string
+        
+       - name: "activity-Id" 
+         in: "header"
+         required: false
+         type: string
+      
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: '#/definitions/PublisherSuccessResponse'
+         
+        "400":
+          description: "Bad request"
+          schema:
+            $ref: '#/definitions/PublisherErrorResponse'
+            
+        "401" :
+          description: "Unauthorized"
+          schema:
+            $ref: '#/definitions/PublisherErrorResponse'
+        "404" :
+          description: "Resource Not Found"
+          schema:
+            $ref: '#/definitions/PublisherErrorResponse'
+        "500":
+           description: "Internal Server Error"
+           schema:
+            $ref: '#/definitions/PublisherErrorResponse'
+definitions:
+  PublisherRequest:
+    type: "object"
+    required:
+     - customerNumber
+     - firstName
+     - lastName
+     - birthDate
+     - country
+     - countryCode
+     - mobileNumber
+     - emial
+     - customerStatus
+     - address
+     
+    properties:
+      customerNumber:
+        type: "integer"
+        format: "int32"
+        pattern: '[C][0-9]*'
+      firstName:
+        type: "string"
+        minLength: 10
+        maxLength: 50
+      lastName:
+        type: "string"
+        minLength: 10
+        maxLength: 50
+      birthDate:
+        type: "string"
+        pattern: '^(1[0-2]|0[1-9])/(3[01]"
+                       + "|[12][0-9]|0[1-9])/[0-9]{4}$'
+      country:
+        type: "string"
+      countryCode:
+        type: "string"
+        minLength: 2
+        maxLength: 2
+        example: IN
+        pattern: '^[A-Z][A-Z]$'
+      mobileNumber:
+        type: "integer"
+        minLength: 10
+        maxLength: 10
+        pattern: "^\\d{10}$"
+      email:
+        type: "string"
+        pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.(?:[a-zA-Z]{2,6})$"
+      customerStatus:
+        type: "string"
+        enum:
+        - "Open"
+        - "Closed"
+        - "Suspended"
+        - "Restored"
+      address:
+        type: array
+        items:
+          $ref: '#/definitions/address'
+  address: 
+      type: object
+      required:
+        - addressLine1
+        - pinCode
+      properties:
+         addressLine1:
+           type: "string"
+           minLength: 0
+           maxLength: 50
+         addressLine2:
+           type: "string"
+         street:
+           type: string
+           
+         pinCode:
+           type: "integer"
+           minLength: 5
+           maxLength: 5
+           pattern: '[0-9]*'
+
+  PublisherSuccessResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      message:
+        type: "string"
+        
+  PublisherErrorResponse:
+    type: object
+    properties:
+      code:
+        type: "integer"
+      message:
+        type: "string"
+      errorType:
+        type: "string"
