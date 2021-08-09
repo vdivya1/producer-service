@@ -55,6 +55,11 @@
 			<artifactId>spring-cloud-starter-oauth2</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
@@ -143,29 +148,30 @@
 	</profiles>
 	<build>
 		<plugins>
+
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<formats>
-						<format>html</format>
-						<format>xml</format>
-					</formats>
-				</configuration>
-				<inherited>true</inherited>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
 				<executions>
 					<execution>
-						<phase>package</phase>
+						<id>prepare-agent</id>
 						<goals>
-							<goal>cobertura</goal>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>create-report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<excludes>
+						<!-- <exclude>com/prokarma/publisher/customer/customerpublisher/domain/**/*</exclude> -->
+					</excludes>
+				</configuration>
 			</plugin>
 		</plugins>
 

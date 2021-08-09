@@ -23,7 +23,7 @@ import com.prokarma.publisher.customer.customerpublisher.domain.PublisherSuccess
 import com.prokarma.publisher.customer.customerpublisher.service.CustomerPublisherService;
 
 @ExtendWith(MockitoExtension.class)
-public class CustomerPublisherControllerTest {
+ class CustomerPublisherControllerTest {
 
 	@InjectMocks
 	CustomerPublisherController publisherController;
@@ -35,7 +35,7 @@ public class CustomerPublisherControllerTest {
 	CustomerPublisherService publisherService;
 
 	@Test
-	public void publisherCustomerDeatilsTest() {
+	 void publisherCustomerDeatilsTest() {
 		PublisherRequest request = publisherDeatilsRequest();
 		PublisherRequestVO publisherDeatilsRequestVo = publisherDeatilsRequestVo();
 		Mockito.when(converter.convert(request)).thenReturn(publisherDeatilsRequestVo);

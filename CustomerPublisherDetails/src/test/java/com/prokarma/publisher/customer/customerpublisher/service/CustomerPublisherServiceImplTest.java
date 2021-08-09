@@ -30,12 +30,6 @@ import com.prokarma.publisher.customer.customerpublisher.domain.PublisherSuccess
 		assertEquals(buildMessageResponse(), publishMessage);
 	}
 
-	@Test
-	void publishMessageFailureTest() {
-		PublisherSuccessResponse publishMessage = customerPublisherServiceImpl.publishMessage(null);
-		assertEquals(buildMessageResponse(), publishMessage);
-	}
-
 	private PublisherRequest publisherDeatilsRequest() {
 		Address address = new Address();
 		address.setAddressLine1("centenary colony");
