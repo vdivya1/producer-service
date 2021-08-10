@@ -1,4 +1,4 @@
-package com.prokarma.publisher.customer.customerpublisher.model.security;
+package com.prokarma.publisher.customer.customerpublisher.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

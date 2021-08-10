@@ -1,4 +1,4 @@
-package com.prokarma.publisher.customer.customerpublisher.model.security;
+package com.prokarma.publisher.customer.customerpublisher.security;
 
 import java.io.IOException;
 
