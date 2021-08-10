@@ -169,7 +169,7 @@
 				</executions>
 				<configuration>
 					<excludes>
-						<!-- <exclude>com/prokarma/publisher/customer/customerpublisher/domain/**/*</exclude> -->
+						<exclude>com/prokarma/publisher/customer/customerpublisher</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
